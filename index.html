@@ -326,8 +326,8 @@
               </div>
             </div>
 
-            <!-- Enrollment Form -->
-            <form class="flex flex-col gap-5 pt-2" id="enrollment-form" onsubmit="event.preventDefault(); triggerEnrollment();">
+            <!-- Enrollment Form Connected to Formspree -->
+            <form class="flex flex-col gap-5 pt-2" id="enrollment-form" action="https://formspree.io/f/mzerepov" method="POST">
               <!-- Full Name Field -->
               <div class="flex flex-col gap-2">
                 <div class="flex items-center justify-between flex-wrap gap-2">
@@ -341,7 +341,7 @@
                 </div>
                 <div class="relative flex items-center">
                   <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px]">person</span>
-                  <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-4 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-name" placeholder="Enter your full name" required="" type="text"/>
+                  <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-4 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-name" name="name" placeholder="Enter your full name" required="" type="text"/>
                 </div>
               </div>
 
@@ -358,7 +358,7 @@
                 </div>
                 <div class="relative flex items-center">
                   <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px]">mail</span>
-                  <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-4 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-email" placeholder="name@gmail.com" required="" type="email"/>
+                  <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-4 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-email" name="email" placeholder="name@gmail.com" required="" type="email"/>
                 </div>
               </div>
 
@@ -376,7 +376,7 @@
                   </div>
                   <div class="relative flex-1 flex items-center">
                     <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px]">call</span>
-                    <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-11 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-phone" pattern="[0-9]{10}" placeholder="98765 43210" required="" type="tel"/>
+                    <input class="w-full bg-surface-container-lowest text-on-surface pl-12 pr-11 py-3.5 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 transition-all duration-200" id="student-phone" name="phone" pattern="[0-9]{10}" placeholder="98765 43210" required="" type="tel"/>
                     <span class="material-symbols-outlined absolute right-3.5 text-primary-container text-[20px]" id="phone-valid-icon">check_circle</span>
                   </div>
                 </div>
@@ -389,13 +389,13 @@
                   <span class="font-label-sm text-[11px] text-on-surface-variant">Roadmap notes</span>
                 </label>
                 <div class="relative">
-                  <textarea class="w-full bg-surface-container-lowest text-on-surface p-4 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 resize-none transition-all duration-200" id="student-comment" placeholder="Share your guitar experience (beginner, intermediate, fingerstyle background)..." rows="3"></textarea>
+                  <textarea class="w-full bg-surface-container-lowest text-on-surface p-4 rounded-xl text-body-md placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container shadow-inner border border-white/5 resize-none transition-all duration-200" id="student-comment" name="message" placeholder="Share your guitar experience (beginner, intermediate, fingerstyle background)..." rows="3"></textarea>
                 </div>
               </div>
 
               <!-- Checkbox: Daily Drills -->
               <div class="flex items-start gap-3.5 p-3.5 rounded-xl bg-surface-container-highest/60 hover:bg-surface-container-highest cursor-pointer transition-colors border border-white/5" onclick="document.getElementById('drill-optin').click();">
-                <input checked="" class="mt-1 w-5 h-5 rounded bg-surface-container-lowest text-primary-container focus:ring-0 cursor-pointer accent-[#00f3ff]" id="drill-optin" onclick="event.stopPropagation();" type="checkbox"/>
+                <input checked="" class="mt-1 w-5 h-5 rounded bg-surface-container-lowest text-primary-container focus:ring-0 cursor-pointer accent-[#00f3ff]" id="drill-optin" name="daily_drills" value="yes" onclick="event.stopPropagation();" type="checkbox"/>
                 <label class="cursor-pointer flex flex-col" for="drill-optin" onclick="event.stopPropagation();">
                   <span class="font-label-md text-sm text-primary font-bold">Yes, send me daily fingerstyle warm-up drills on WhatsApp &amp; Email</span>
                   <span class="font-body-sm text-xs text-on-surface-variant">Curated 5-minute micro tabs to build speed, thumb independence, and accuracy.</span>
@@ -535,36 +535,6 @@
 
       </section>
     </div>
-
-    <!-- Bottom Interactive Confirmation Modal -->
-    <div class="fixed inset-0 z-50 bg-background/85 backdrop-blur-xl flex items-center justify-center p-6 hidden" id="enrollment-modal" onclick="if(event.target===this) closeModal();">
-      <div class="w-full max-w-lg rounded-2xl bg-surface-container-high p-8 shadow-[0_0_48px_rgba(0,243,255,0.4)] border border-primary-container/20 flex flex-col gap-6 relative" onclick="event.stopPropagation();">
-        <button class="absolute top-5 right-5 w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer" onclick="closeModal();" type="button">
-          <span class="material-symbols-outlined text-[20px]">close</span>
-        </button>
-        <div class="w-16 h-16 rounded-2xl bg-primary-container text-background flex items-center justify-center mx-auto shadow-[0_0_32px_rgba(0,243,255,0.6)]">
-          <span class="material-symbols-outlined text-[36px]">task_alt</span>
-        </div>
-        <div class="text-center flex flex-col gap-2">
-          <h3 class="font-headline-md text-xl text-primary font-extrabold">Redirecting to Secure Gateway</h3>
-          <p class="font-body-md text-sm text-on-surface-variant">
-            Preparing your instant credentials for <span class="text-primary font-bold" id="modal-student-name">Student</span> (<span class="text-secondary font-mono" id="modal-student-email">email</span>).
-          </p>
-        </div>
-        <div class="p-4 rounded-xl bg-surface-container-lowest flex items-center justify-between border border-white/5">
-          <span class="font-label-lg text-sm text-on-surface-variant">Total Amount Due</span>
-          <span class="font-headline-sm text-lg text-primary-container font-bold">₹999</span>
-        </div>
-        <div class="flex flex-col gap-3">
-          <button class="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-background font-headline-sm text-sm uppercase tracking-wider font-extrabold shadow-[0_0_24px_rgba(0,243,255,0.5)] hover:scale-[1.02] transition-transform cursor-pointer" onclick="simulateSuccess();" type="button">
-            Simulate Secure UPI Payment
-          </button>
-          <button class="w-full py-2.5 rounded-xl bg-transparent hover:bg-surface-container text-on-surface-variant font-label-md text-xs uppercase tracking-wider transition-colors cursor-pointer" onclick="closeModal();" type="button">
-            Modify Details
-          </button>
-        </div>
-      </div>
-    </div>
   </main>
 
   <!-- Footer -->
@@ -621,7 +591,6 @@
 
       const mouse = { x: width / 2, y: height / 2, prevX: width / 2, prevY: height / 2, speed: 0 };
       const particles = [];
-      const maxParticles = 65;
 
       window.addEventListener('mousemove', (e) => {
         const dx = e.clientX - mouse.x;
@@ -632,7 +601,6 @@
         mouse.x = e.clientX;
         mouse.y = e.clientY;
 
-        // Spawn plasma particles based on movement
         const count = Math.min(Math.floor(mouse.speed * 0.25) + 1, 4);
         for (let i = 0; i < count; i++) {
           particles.push({
@@ -642,7 +610,7 @@
             vy: (Math.random() - 0.5) * 1.8 + dy * 0.05,
             radius: Math.random() * 8 + 3,
             alpha: 1,
-            hue: Math.random() > 0.3 ? 183 : 48, // Cyan (#00f3ff) & Yellow (#f5dd00)
+            hue: Math.random() > 0.3 ? 183 : 48,
             life: Math.random() * 0.02 + 0.02
           });
         }
@@ -652,7 +620,6 @@
         ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'screen';
 
-        // Draw primary energetic glow around mouse position
         const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 35);
         gradient.addColorStop(0, 'rgba(0, 243, 255, 0.45)');
         gradient.addColorStop(0.5, 'rgba(0, 210, 255, 0.15)');
@@ -663,7 +630,6 @@
         ctx.arc(mouse.x, mouse.y, 35, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update & Render plasma particles
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
           p.x += p.vx;
@@ -699,7 +665,6 @@
       const stage = document.getElementById('guitar-hero-stage');
       const container = document.getElementById('guitar-canvas-container');
 
-      // Scene, Camera, Renderer
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
       camera.position.set(0, 0, 11);
@@ -711,7 +676,6 @@
       renderer.toneMappingExposure = 1.3;
       container.appendChild(renderer.domElement);
 
-      // Lighting
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
       scene.add(ambientLight);
 
@@ -727,7 +691,6 @@
       centerGlow.position.set(0, 0, 0);
       scene.add(centerGlow);
 
-      // Floating Cyber Background Sparks
       const sparkCount = 80;
       const sparkGeo = new THREE.BufferGeometry();
       const sparkPos = new Float32Array(sparkCount * 3);
@@ -747,13 +710,11 @@
       const sparkField = new THREE.Points(sparkGeo, sparkMat);
       scene.add(sparkField);
 
-      // Master Guitar Group
       const guitarGroup = new THREE.Group();
       guitarGroup.rotation.z = -0.15;
       guitarGroup.rotation.y = -0.3;
       scene.add(guitarGroup);
 
-      // Materials
       const spruceTopMat = new THREE.MeshStandardMaterial({
         color: 0x242831,
         roughness: 0.35,
@@ -797,7 +758,6 @@
         roughness: 0.2
       });
 
-      // Part Components Array for Explode Calculations
       const explodeParts = [];
 
       function registerPart(mesh, deltaX, deltaY, deltaZ, rotX = 0, rotY = 0, rotZ = 0) {
@@ -815,10 +775,6 @@
         });
       }
 
-      /* -------------------------------------------------------------
-         BUILDING DETAILED PROCEDURAL GUITAR ASSEMBLY
-         ------------------------------------------------------------- */
-      // 1. Acoustic Soundboard (Top Plate)
       const topPlateGeo = new THREE.CylinderGeometry(1.6, 2.1, 0.08, 36);
       topPlateGeo.scale(1, 1, 1.4);
       const topPlate = new THREE.Mesh(topPlateGeo, spruceTopMat);
@@ -826,7 +782,6 @@
       topPlate.rotation.x = Math.PI / 2;
       registerPart(topPlate, 0, -0.5, 2.8, 0.2, 0.3, 0);
 
-      // 2. Soundhole Rosette Ring
       const rosetteGeo = new THREE.TorusGeometry(0.55, 0.06, 16, 40);
       const rosetteMat = new THREE.MeshStandardMaterial({
         color: 0x00f3ff,
@@ -837,19 +792,16 @@
       rosette.position.set(0, -0.2, 0.52);
       registerPart(rosette, 0, -0.2, 3.4, 0.1, 0.2, 0);
 
-      // 3. Acoustic Bridge & Pins
       const bridgeGeo = new THREE.BoxGeometry(1.2, 0.24, 0.12);
       const bridge = new THREE.Mesh(bridgeGeo, fretboardMat);
       bridge.position.set(0, -1.2, 0.52);
       registerPart(bridge, 0, -1.2, 3.1, -0.2, 0, 0);
 
-      // 4. Back Plate
       const backPlate = new THREE.Mesh(topPlateGeo, bodyBackSidesMat);
       backPlate.position.set(0, -0.6, -0.45);
       backPlate.rotation.x = Math.PI / 2;
       registerPart(backPlate, 0, 0.3, -3.2, -0.2, -0.2, 0);
 
-      // 5. Guitar Rim / Sides Ribs
       const sidesGeo = new THREE.CylinderGeometry(1.62, 2.12, 0.85, 36, 1, true);
       sidesGeo.scale(1, 1, 1.4);
       const sides = new THREE.Mesh(sidesGeo, bodyBackSidesMat);
@@ -857,7 +809,6 @@
       sides.rotation.x = Math.PI / 2;
       registerPart(sides, 0, -0.8, -1.4, 0.3, 0, 0.2);
 
-      // 6. Internal Scalloped X-Brace Structure
       const braceGroup = new THREE.Group();
       const strutGeo = new THREE.BoxGeometry(0.08, 2.8, 0.1);
       const strut1 = new THREE.Mesh(strutGeo, goldHardwareMat);
@@ -868,31 +819,26 @@
       braceGroup.position.set(0, -0.6, 0.2);
       registerPart(braceGroup, 0, 0, 1.2, 0.1, 0.4, 0);
 
-      // 7. Internal Percussive Dual Transducer / Mic
       const pickupGeo = new THREE.BoxGeometry(0.45, 0.3, 0.25);
       const pickup = new THREE.Mesh(pickupGeo, pickupCoreMat);
       pickup.position.set(0, -0.6, 0);
       registerPart(pickup, 0, 0.8, 0.2, 0.4, 0.5, 0);
 
-      // 8. Guitar Neck & Truss Rod
       const neckGeo = new THREE.CylinderGeometry(0.2, 0.26, 4.4, 20);
       const neck = new THREE.Mesh(neckGeo, neckMat);
       neck.position.set(0, 2.5, 0.1);
       registerPart(neck, 0, 2.6, 1.0, -0.3, 0, 0);
 
-      // 9. Fretboard with Inlays
       const fretboardGeo = new THREE.BoxGeometry(0.38, 4.2, 0.08);
       const fretboard = new THREE.Mesh(fretboardGeo, fretboardMat);
       fretboard.position.set(0, 2.45, 0.32);
       registerPart(fretboard, 0, 2.8, 1.8, -0.2, 0.1, 0);
 
-      // 10. Headstock & Tuning Machines
       const headstockGroup = new THREE.Group();
       const headGeo = new THREE.BoxGeometry(0.65, 1.2, 0.14);
       const head = new THREE.Mesh(headGeo, neckMat);
       headstockGroup.add(head);
 
-      // 6 Tuning Pegs
       for (let i = -1; i <= 1; i++) {
         const pegL = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.3, 12), goldHardwareMat);
         pegL.rotation.z = Math.PI / 2;
@@ -907,7 +853,6 @@
       headstockGroup.position.set(0, 5.2, 0.1);
       registerPart(headstockGroup, 0, 4.2, 2.2, -0.4, 0, 0);
 
-      // 11. Six Acoustic Guitar Strings (Phosphor Bronze Glow)
       const stringGroup = new THREE.Group();
       for (let s = -2.5; s <= 2.5; s++) {
         const strGeo = new THREE.CylinderGeometry(0.012, 0.012, 6.2, 8);
@@ -917,10 +862,6 @@
       }
       registerPart(stringGroup, 0, 0.5, 3.8, 0, 0.3, 0);
 
-      /* -------------------------------------------------------------
-         SCROLLTRIGGER TIMELINE: DECONSTRUCTION / EXPLOSION SCRUB
-         ------------------------------------------------------------- */
-      const explosionState = { progress: 0 };
       const specPill1 = document.getElementById('spec-1');
       const specPill2 = document.getElementById('spec-2');
       const specPill3 = document.getElementById('spec-3');
@@ -932,9 +873,6 @@
         pin: true,
         scrub: 1.2,
         onUpdate: (self) => {
-          explosionState.progress = self.progress;
-
-          // Interpolate all parts along their explosion vectors
           explodeParts.forEach((part) => {
             part.mesh.position.lerpVectors(part.origPos, part.destPos, self.progress);
             part.mesh.rotation.x = THREE.MathUtils.lerp(part.origRot.x, part.destRot.x, self.progress);
@@ -942,13 +880,11 @@
             part.mesh.rotation.z = THREE.MathUtils.lerp(part.origRot.z, part.destRot.z, self.progress);
           });
 
-          // Camera & master angle orbit
           camera.position.z = THREE.MathUtils.lerp(11, 13.5, self.progress);
           camera.position.y = THREE.MathUtils.lerp(0, 1.2, self.progress);
           guitarGroup.rotation.y = THREE.MathUtils.lerp(-0.3, 0.6, self.progress);
           guitarGroup.rotation.x = THREE.MathUtils.lerp(0, 0.35, self.progress);
 
-          // Reveal Spec Badges when exploded > 35%
           if (self.progress > 0.35) {
             specPill1.classList.add('visible');
             specPill2.classList.add('visible');
@@ -961,7 +897,6 @@
         }
       });
 
-      // Mouse Drag & Parallax Interaction
       let isDragging = false;
       let prevMousePos = { x: 0, y: 0 };
 
@@ -982,84 +917,23 @@
         }
       });
 
-      // Resize Handler
       window.addEventListener('resize', () => {
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(container.clientWidth, container.clientHeight);
       });
 
-      // Animation Loop
       function animate(time) {
         requestAnimationFrame(animate);
-
-        // Idle floating oscillation
         if (!isDragging) {
           guitarGroup.position.y = Math.sin(time * 0.0015) * 0.12;
         }
-
-        // Rotate sparks slowly
         sparkField.rotation.y = time * 0.0002;
         sparkField.rotation.x = time * 0.0001;
-
         renderer.render(scene, camera);
       }
       animate(0);
     })();
-
-
-    /* =================================================================
-       4. FORM LOGIC & MODALS (PRESERVED FROM ORIGINAL STITCH CODE)
-       ================================================================= */
-    function triggerEnrollment() {
-      var nameInput = document.getElementById('student-name');
-      var emailInput = document.getElementById('student-email');
-      var phoneInput = document.getElementById('student-phone');
-
-      var name = nameInput ? nameInput.value.trim() : '';
-      var email = emailInput ? emailInput.value.trim() : '';
-      var phone = phoneInput ? phoneInput.value.trim() : '';
-
-      if (!name || !email || !phone) {
-        alert('Please fill out all required fields.');
-        return;
-      }
-
-      var modalName = document.getElementById('modal-student-name');
-      var modalEmail = document.getElementById('modal-student-email');
-      if (modalName) modalName.innerText = name;
-      if (modalEmail) modalEmail.innerText = email;
-
-      var modal = document.getElementById('enrollment-modal');
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function closeModal() {
-      var modal = document.getElementById('enrollment-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    function simulateSuccess() {
-      var modal = document.getElementById('enrollment-modal');
-      if (!modal) return;
-      modal.innerHTML = `
-        <div class="w-full max-w-lg rounded-2xl bg-surface-container-high p-8 shadow-[0_0_48px_rgba(0,243,255,0.5)] border border-primary-container/30 flex flex-col items-center text-center gap-5 relative">
-          <button onclick="closeModal();" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer" type="button">
-            <span class="material-symbols-outlined text-[20px]">close</span>
-          </button>
-          <div class="w-16 h-16 rounded-2xl bg-tertiary-container text-background flex items-center justify-center shadow-[0_0_32px_rgba(255,221,0,0.5)]">
-            <span class="material-symbols-outlined text-[36px]">check_circle</span>
-          </div>
-          <h3 class="font-headline-md text-2xl text-primary font-extrabold">Enrollment Verified!</h3>
-          <p class="font-body-md text-sm text-on-surface-variant">
-            Your portal key and VIP Telegram invite link have been delivered. Check your email and WhatsApp immediately.
-          </p>
-          <button onclick="closeModal();" class="mt-2 px-8 py-3 rounded-xl bg-primary-container text-background font-headline-sm text-sm uppercase tracking-wider font-bold hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,243,255,0.4)]">
-            Enter Student Dashboard
-          </button>
-        </div>
-      `;
-    }
 
     function verifyTelegramHandle() {
       var input = document.getElementById('telegram-handle');
