@@ -89,7 +89,7 @@
       background: #00f3ffaa;
     }
 
-    /* Plasma Cursor Canvas */
+    /* Plasma Cursor Canvas - Fixed over entire screen */
     #plasma-cursor-canvas {
       position: fixed;
       top: 0;
@@ -106,7 +106,7 @@
       position: relative;
       width: 100%;
       height: 100vh;
-      min-height: 700px;
+      min-height: 650px;
       overflow: hidden;
     }
 
@@ -117,6 +117,7 @@
       height: 100%;
       z-index: 5;
       cursor: grab;
+      touch-action: pan-y;
     }
     #guitar-canvas-container:active {
       cursor: grabbing;
@@ -138,7 +139,7 @@
 
 <body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary">
 
-  <!-- Plasma Cursor Canvas Overlay -->
+  <!-- Plasma Cursor & Touch Particle Canvas -->
   <canvas id="plasma-cursor-canvas"></canvas>
 
   <!-- Sticky Top Header -->
@@ -228,7 +229,7 @@
   </section>
 
   <!-- ============================================================== -->
-  <!-- MAIN ENROLLMENT & MASTERCLASS CONTENT (FROM STITCH)          -->
+  <!-- MAIN ENROLLMENT & MASTERCLASS CONTENT                         -->
   <!-- ============================================================== -->
   <main id="enrollment-section" class="w-full pt-12 pb-24 bg-background relative z-10">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-12">
@@ -328,6 +329,8 @@
 
             <!-- Enrollment Form Connected to Formspree -->
             <form class="flex flex-col gap-5 pt-2" id="enrollment-form" action="https://formspree.io/f/mzerepov" method="POST">
+              <input type="hidden" name="_subject" value="New Masterclass Enrollment Submission - Amit Sharma Fingerstyle"/>
+
               <!-- Full Name Field -->
               <div class="flex flex-col gap-2">
                 <div class="flex items-center justify-between flex-wrap gap-2">
@@ -467,9 +470,11 @@
 
         <!-- Right Column: VIP Telegram Guild & Direct Mentorship Showcase (5 cols) -->
         <div class="lg:col-span-5 flex flex-col gap-6">
-          <!-- Card 1: Official Telegram VIP Guild Integration -->
+          
+          <!-- Card 1: Official Telegram VIP Guild Integration (Direct Formspree + QR Box) -->
           <div class="relative rounded-2xl bg-surface-container-low p-6 sm:p-8 shadow-[0_0_32px_rgba(0,243,255,0.18)] border border-white/5 overflow-hidden">
             <div class="pointer-events-none absolute -top-16 -right-16 w-44 h-44 bg-secondary-container/20 blur-3xl rounded-full"></div>
+            
             <div class="flex items-start justify-between gap-4 pb-4">
               <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-secondary-container to-primary-container p-0.5 shadow-[0_0_24px_rgba(0,243,255,0.4)]">
                 <div class="w-full h-full bg-surface-container-lowest rounded-2xl flex items-center justify-center">
@@ -481,6 +486,7 @@
                 Official Channel
               </span>
             </div>
+            
             <div class="flex flex-col gap-2 pt-2">
               <h3 class="font-headline-sm text-lg text-primary tracking-tight font-bold">
                 Telegram VIP Guild
@@ -489,23 +495,77 @@
                 Join 2,400+ active fingerstyle guitarists. Access real-time tab drop alerts, weekly Zoom Q&amp;A links, jam backing tracks, and technique discussions.
               </p>
             </div>
-            <!-- Telegram Handle Input Form -->
-            <div class="flex flex-col gap-3 pt-4">
-              <label class="font-label-sm text-xs text-primary uppercase tracking-wider font-semibold" for="telegram-handle">Enter or Paste Telegram ID</label>
+
+            <!-- Direct Formspree Submission Form for Telegram Username -->
+            <form action="https://formspree.io/f/mzerepov" method="POST" class="flex flex-col gap-3 pt-4">
+              <input type="hidden" name="_subject" value="New Telegram VIP Guild Username Submission - Amit Sharma"/>
+              
+              <label class="font-label-sm text-xs text-primary uppercase tracking-wider font-semibold" for="telegram-username">
+                Enter Telegram Username
+              </label>
+              
               <div class="flex flex-col sm:flex-row gap-2">
                 <div class="relative flex-1 flex items-center">
                   <span class="absolute left-3.5 text-on-surface-variant font-bold text-sm">@</span>
-                  <input class="w-full bg-surface-container-lowest text-on-surface pl-9 pr-3 py-2.5 rounded-lg text-body-sm placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container border border-white/5" id="telegram-handle" placeholder="username" type="text"/>
+                  <input 
+                    class="w-full bg-surface-container-lowest text-on-surface pl-9 pr-3 py-2.5 rounded-lg text-body-sm placeholder:text-outline focus:outline-none focus:ring-1 focus:ring-primary-container border border-white/5 transition-all" 
+                    id="telegram-username" 
+                    name="telegram_username" 
+                    placeholder="Enter Telegram Username" 
+                    required="" 
+                    type="text"
+                  />
                 </div>
-                <button class="px-4 py-2.5 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-primary font-label-md text-xs uppercase tracking-wider transition-colors shrink-0 flex items-center justify-center gap-1.5" onclick="verifyTelegramHandle();" type="button">
-                  <span class="material-symbols-outlined text-[16px]">sync</span>
-                  <span id="tg-btn-label">Verify &amp; Link</span>
+                <button 
+                  class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-background font-label-md text-xs font-bold uppercase tracking-wider transition-all hover:opacity-95 shadow-[0_0_16px_rgba(0,243,255,0.35)] shrink-0 flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.02] active:scale-[0.98]" 
+                  type="submit"
+                >
+                  <span class="material-symbols-outlined text-[16px]">send</span>
+                  <span>Send</span>
                 </button>
               </div>
-              <span class="font-body-sm text-xs text-on-surface-variant" id="tg-status-text">
-                Your handle will be whitelisted automatically for VIP guild admission right after checkout.
+              <span class="font-body-sm text-[11px] text-on-surface-variant">
+                Your username will be transmitted directly via Formspree for VIP channel whitelisting.
               </span>
+            </form>
+
+            <!-- Modern QR Code Display Box -->
+            <div class="mt-6 pt-6 border-t border-white/10 flex flex-col items-center text-center gap-3">
+              <div class="flex items-center gap-2 text-primary font-headline-sm text-sm font-bold">
+                <span class="material-symbols-outlined text-primary-container text-[20px]">qr_code_scanner</span>
+                <span>Scan to Join Telegram Group directly</span>
+              </div>
+              <p class="font-body-sm text-xs text-on-surface-variant max-w-xs">
+                Scan with your smartphone camera or Telegram app to join our community instantly.
+              </p>
+              
+              <!-- Neon Cyber QR Frame -->
+              <div class="relative group p-3 rounded-2xl bg-surface-container-lowest border border-primary-container/30 shadow-[0_0_24px_rgba(0,243,255,0.2)] hover:shadow-[0_0_36px_rgba(0,243,255,0.45)] transition-all duration-300">
+                <div class="w-44 h-44 sm:w-48 sm:h-48 rounded-xl overflow-hidden bg-white p-2.5 flex items-center justify-center">
+                  <img 
+                    src="telegram-qr.jpg" 
+                    alt="Scan to Join Telegram Group directly" 
+                    onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://t.me/';" 
+                    class="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-surface-container-high border border-primary-container/50 text-primary-container font-label-sm text-[10px] uppercase tracking-widest font-bold whitespace-nowrap shadow-md">
+                  VIP GUILD ACCESS
+                </div>
+              </div>
+
+              <!-- Direct Clickable Fallback Link -->
+              <a 
+                class="mt-3 text-xs text-primary-container hover:text-primary flex items-center gap-1 font-label-sm uppercase tracking-wider transition-colors" 
+                href="https://t.me/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <span>Or open link directly in browser</span>
+                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+              </a>
             </div>
+
           </div>
 
           <!-- Card 2: 1-on-1 Direct Video Critiques Showcase -->
@@ -552,7 +612,7 @@
   </footer>
 
   <!-- ============================================================== -->
-  <!-- JAVASCRIPT: PLASMA CURSOR + 3D GUITAR EXPLODE + LENIS SCROLL -->
+  <!-- JAVASCRIPT: DUAL DESKTOP & MOBILE PLASMA + 3D GUITAR EXPLODE -->
   <!-- ============================================================== -->
   <script>
     /* =================================================================
@@ -576,66 +636,148 @@
 
 
     /* =================================================================
-       2. DYNAMIC PLASMA CURSOR TRAIL EFFECT
+       2. DYNAMIC PLASMA CURSOR & TOUCH ENGINE (DESKTOP + MOBILE)
        ================================================================= */
-    (function initPlasmaCursor() {
+    (function initPlasmaTouchCursor() {
       const canvas = document.getElementById('plasma-cursor-canvas');
       const ctx = canvas.getContext('2d');
-      let width = (canvas.width = window.innerWidth);
-      let height = (canvas.height = window.innerHeight);
+      let width, height;
 
-      window.addEventListener('resize', () => {
+      function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-      });
+      }
+      resize();
+      window.addEventListener('resize', resize);
 
-      const mouse = { x: width / 2, y: height / 2, prevX: width / 2, prevY: height / 2, speed: 0 };
+      const pointer = {
+        x: -9999,
+        y: -9999,
+        prevX: -9999,
+        prevY: -9999,
+        speed: 0,
+        active: false,
+        auraRadius: 40
+      };
+
       const particles = [];
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-      window.addEventListener('mousemove', (e) => {
-        const dx = e.clientX - mouse.x;
-        const dy = e.clientY - mouse.y;
-        mouse.speed = Math.sqrt(dx * dx + dy * dy);
-        mouse.prevX = mouse.x;
-        mouse.prevY = mouse.y;
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+      // Helper function to emit plasma energy particles
+      function emitPlasmaParticles(x, y, dx, dy, isTouch) {
+        pointer.x = x;
+        pointer.y = y;
+        pointer.active = true;
 
-        const count = Math.min(Math.floor(mouse.speed * 0.25) + 1, 4);
+        const speed = Math.sqrt(dx * dx + dy * dy);
+        pointer.speed = speed;
+
+        // Mobile touch gets wider radius & larger glowing sparks so finger doesn't hide it
+        const spread = isTouch ? 26 : 14;
+        const count = isTouch ? Math.min(Math.floor(speed * 0.35) + 2, 6) : Math.min(Math.floor(speed * 0.25) + 1, 4);
+
         for (let i = 0; i < count; i++) {
           particles.push({
-            x: mouse.x + (Math.random() - 0.5) * 12,
-            y: mouse.y + (Math.random() - 0.5) * 12,
-            vx: (Math.random() - 0.5) * 1.8 + dx * 0.05,
-            vy: (Math.random() - 0.5) * 1.8 + dy * 0.05,
-            radius: Math.random() * 8 + 3,
+            x: x + (Math.random() - 0.5) * spread,
+            y: y + (Math.random() - 0.5) * spread,
+            vx: (Math.random() - 0.5) * (isTouch ? 3.0 : 1.8) + dx * (isTouch ? 0.08 : 0.05),
+            vy: (Math.random() - 0.5) * (isTouch ? 3.0 : 1.8) + dy * (isTouch ? 0.08 : 0.05),
+            radius: Math.random() * (isTouch ? 12 : 8) + (isTouch ? 5 : 3),
             alpha: 1,
-            hue: Math.random() > 0.3 ? 183 : 48,
-            life: Math.random() * 0.02 + 0.02
+            hue: Math.random() > 0.35 ? 183 : 48, // Cyan (#00f3ff) & Yellow (#f5dd00)
+            life: Math.random() * 0.03 + 0.02
           });
         }
+      }
+
+      // Tap burst ripple for mobile touches
+      function touchBurst(x, y) {
+        for (let i = 0; i < 14; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 3.5 + 1.2;
+          particles.push({
+            x: x,
+            y: y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            radius: Math.random() * 12 + 4,
+            alpha: 1,
+            hue: Math.random() > 0.4 ? 183 : 48,
+            life: Math.random() * 0.03 + 0.02
+          });
+        }
+      }
+
+      /* Desktop Mouse Listeners */
+      window.addEventListener('mousemove', (e) => {
+        const dx = e.clientX - (pointer.x === -9999 ? e.clientX : pointer.x);
+        const dy = e.clientY - (pointer.y === -9999 ? e.clientY : pointer.y);
+        emitPlasmaParticles(e.clientX, e.clientY, dx, dy, false);
       });
 
+      window.addEventListener('mouseleave', () => {
+        pointer.active = false;
+      });
+
+      /* Mobile Touch Listeners (with passive: true to guarantee buttery smooth scrolling) */
+      window.addEventListener('touchstart', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        const touch = e.touches[0];
+        pointer.prevX = touch.clientX;
+        pointer.prevY = touch.clientY;
+        emitPlasmaParticles(touch.clientX, touch.clientY, 0, 0, true);
+        touchBurst(touch.clientX, touch.clientY);
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!e.touches || e.touches.length === 0) return;
+        for (let i = 0; i < e.touches.length; i++) {
+          const touch = e.touches[i];
+          const dx = touch.clientX - (pointer.prevX === -9999 ? touch.clientX : pointer.prevX);
+          const dy = touch.clientY - (pointer.prevY === -9999 ? touch.clientY : pointer.prevY);
+          pointer.prevX = touch.clientX;
+          pointer.prevY = touch.clientY;
+          emitPlasmaParticles(touch.clientX, touch.clientY, dx, dy, true);
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (e.touches.length === 0) {
+          pointer.active = false;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchcancel', () => {
+        pointer.active = false;
+      }, { passive: true });
+
+      // Render Loop for Plasma Fluid Simulation
       function renderPlasma() {
         ctx.clearRect(0, 0, width, height);
         ctx.globalCompositeOperation = 'screen';
 
-        const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 35);
-        gradient.addColorStop(0, 'rgba(0, 243, 255, 0.45)');
-        gradient.addColorStop(0.5, 'rgba(0, 210, 255, 0.15)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        // Draw central radiant plasma aura when pointer/touch is active
+        if (pointer.active && pointer.x > 0 && pointer.y > 0) {
+          const radius = isTouchDevice ? 52 : 38;
+          const gradient = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, radius);
+          gradient.addColorStop(0, 'rgba(0, 243, 255, 0.45)');
+          gradient.addColorStop(0.4, 'rgba(0, 210, 255, 0.22)');
+          gradient.addColorStop(0.8, 'rgba(245, 221, 0, 0.10)');
+          gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 35, 0, Math.PI * 2);
-        ctx.fill();
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(pointer.x, pointer.y, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
+        // Render and update individual plasma particles
         for (let i = particles.length - 1; i >= 0; i--) {
           const p = particles[i];
           p.x += p.vx;
           p.y += p.vy;
           p.alpha -= p.life;
-          p.radius *= 0.96;
+          p.radius *= 0.95;
 
           if (p.alpha <= 0 || p.radius <= 0.5) {
             particles.splice(i, 1);
@@ -934,27 +1076,6 @@
       }
       animate(0);
     })();
-
-    function verifyTelegramHandle() {
-      var input = document.getElementById('telegram-handle');
-      var status = document.getElementById('tg-status-text');
-      var btn = document.getElementById('tg-btn-label');
-      if (!input || !status || !btn) return;
-
-      if (input.value.trim() === '') {
-        status.innerText = 'Please enter your Telegram handle first (e.g. @guitar_player).';
-        status.classList.add('text-red-400');
-        return;
-      }
-
-      btn.innerText = 'Verifying...';
-      setTimeout(function() {
-        btn.innerText = 'Linked!';
-        status.innerText = 'Success! Handle @' + input.value.replace('@','') + ' has been whitelisted for instant Guild channel approval.';
-        status.classList.remove('text-red-400');
-        status.classList.add('text-primary-container');
-      }, 600);
-    }
   </script>
 </body>
 </html>
